@@ -9,7 +9,6 @@ Welcome to my gamified, retro arcade-style portfolio! Instead of reading a tradi
 * **Interactive Overworld:** Navigate through a fully playable Hub World ("Neo-Tokyo") to discover different sections of my resume.
 * **Marvel Boss Fights:** Each career segment (Tunnel) is guarded by procedurally-generated Marvel-themed bosses (Loki, Ultron, Mysterio, Killmonger, Red Skull, Thanos).
 * **Avenger Loadouts:** Defeating bosses unlocks custom Avenger powers (Thor's Lightning, Iron Man's Repulsors, Captain America's Shield, etc.) to use in subsequent levels.
-* **Animated Experience Environments:** 
 * **Tech Citadel Finale:** A dramatic endpoint showcasing my final profile details and certifications (including NPTEL, TCS iON, Deloitte, and Anthropic).
 
 ## 🛠️ Technology Stack
