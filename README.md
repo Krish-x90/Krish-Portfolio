@@ -10,8 +10,6 @@ Welcome to my gamified, retro arcade-style portfolio! Instead of reading a tradi
 * **Marvel Boss Fights:** Each career segment (Tunnel) is guarded by procedurally-generated Marvel-themed bosses (Loki, Ultron, Mysterio, Killmonger, Red Skull, Thanos).
 * **Avenger Loadouts:** Defeating bosses unlocks custom Avenger powers (Thor's Lightning, Iron Man's Repulsors, Captain America's Shield, etc.) to use in subsequent levels.
 * **Animated Experience Environments:** 
-  * *All India Radio, Subros Ltd, UCN Cable Network* are recreated with custom animations and physical platforming mechanics.
-  * A dedicated, pastel-blue **SB Jain College** zone highlighting my leadership experience as Technical Head of the FEETA Forum.
 * **Tech Citadel Finale:** A dramatic endpoint showcasing my final profile details and certifications (including NPTEL, TCS iON, Deloitte, and Anthropic).
 
 ## 🛠️ Technology Stack
