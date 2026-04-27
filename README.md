@@ -2,7 +2,7 @@
 
 Welcome to my gamified, retro arcade-style portfolio! Instead of reading a traditional resume, you can explore my skills, education, and professional experience by battling your way through a dynamic 16-bit universe.
 
-![Gameplay Preview](./public/favicon.svg)
+![Gameplay Preview](./public/preview.jpg)
 
 ## 🌟 Features
 
