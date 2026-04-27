@@ -1168,8 +1168,7 @@ export function addVillain(scene, x, y, tunnelNum) {
         this.sprite.body.enable = false;
         playSound('kill');
         scene.cameras.main.shake(400, 0.03);
-        if (this.auraTween) this.auraTween.stop();
-
+        scene.cameras.main.shake(400, 0.03);
         scene.tweens.add({
           targets: this.sprite,
           alpha: 0,
@@ -1184,7 +1183,6 @@ export function addVillain(scene, x, y, tunnelNum) {
             this.hBar.destroy();
             this.chargeBg.destroy();
             this.chargeBar.destroy();
-            this.aura.destroy();
           }
         });
         scene.hud.addXP(100);
