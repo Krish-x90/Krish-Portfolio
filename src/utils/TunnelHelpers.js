@@ -89,7 +89,7 @@ export function setupTunnel(scene, config) {
   scene.exitText = exitText;
 
   scene.physics.add.overlap(scene.player.sprite, exit, () => {
-    if (!scene._transitioning && exit.body.enable && Phaser.Input.Keyboard.JustDown(scene.player.enterKey)) {
+    if (!scene._transitioning && exit.body.enable && (Phaser.Input.Keyboard.JustDown(scene.player.enterKey) || scene.player.mobileDown)) {
       scene._transitioning = true;
       stopBGM();
       playSound('enter');
