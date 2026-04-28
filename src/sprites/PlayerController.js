@@ -92,7 +92,7 @@ export class PlayerController {
     this.escKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
     this.mobileDir = { x: 0, y: 0 };
-    this.mobileJump = false; this.mobileDown = false; this.mobileAttack = false;
+    this.mobileJump = false; this.mobileDown = false; this.mobileAttack = false; this.mobileAll = false;
 
     this.dustEmitter = scene.add.particles(0, 0, 'particle', {
       speed: { min: 20, max: 60 }, scale: { start: 0.8, end: 0 },
@@ -195,7 +195,7 @@ export class PlayerController {
     if (this.allPowerCooldown > 0) this.allPowerCooldown--;
     if (this.multiPowerMode) {
       this.handlePowerSwitching();
-      if (Phaser.Input.Keyboard.JustDown(this.allPowerKey) && this.allPowerCooldown <= 0) {
+      if ((Phaser.Input.Keyboard.JustDown(this.allPowerKey) || this.mobileAll) && this.allPowerCooldown <= 0) {
         this.useAllPowers();
       }
     }
@@ -207,7 +207,7 @@ export class PlayerController {
     }
 
     this.wasOnGround = onGround;
-    this.mobileJump = false; this.mobileDown = false; this.mobileAttack = false;
+    this.mobileJump = false; this.mobileDown = false; this.mobileAttack = false; this.mobileAll = false;
   }
 
   takeDamage(amount) {

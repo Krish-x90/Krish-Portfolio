@@ -14,11 +14,16 @@ import { PauseScene } from './scenes/PauseScene.js';
 
 import './style.css';
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isPortrait = window.innerHeight > window.innerWidth;
+const gameW = isMobile && isPortrait ? 720 : 1280;
+const gameH = isMobile && isPortrait ? 1280 : 720;
+
 const config = {
   type: Phaser.AUTO,
   parent: 'game-container',
-  width: 1280,
-  height: 720,
+  width: gameW,
+  height: gameH,
   pixelArt: true,
   roundPixels: true,
   physics: {

@@ -28,6 +28,25 @@ export class MobileControls {
     }).setOrigin(0.5).setScrollFactor(0).setDepth(201);
     atkBtn.on('pointerdown', () => { player.mobileAttack = true; });
 
+    // Thanos level extra buttons
+    if (player.multiPowerMode) {
+      // Switch button
+      const switchBtn = scene.add.circle(cam.width - 150, by - 50, 26, 0x4444ff, 0.3).setScrollFactor(0).setDepth(200).setInteractive();
+      scene.add.text(cam.width - 150, by - 50, 'SW', {
+        fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#4444ff'
+      }).setOrigin(0.5).setScrollFactor(0).setDepth(201);
+      switchBtn.on('pointerdown', () => {
+        player.selectPower((player.selectedPowerIndex + 1) % player.availablePowers.length);
+      });
+
+      // All powers button
+      const allBtn = scene.add.circle(cam.width - 220, by + 10, 26, 0xffaa00, 0.3).setScrollFactor(0).setDepth(200).setInteractive();
+      scene.add.text(cam.width - 220, by + 10, 'ALL', {
+        fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#ffaa00'
+      }).setOrigin(0.5).setScrollFactor(0).setDepth(201);
+      allBtn.on('pointerdown', () => { player.mobileAll = true; });
+    }
+
     // Joystick drag
     this.base.setInteractive();
     scene.input.on('pointermove', (pointer) => {
