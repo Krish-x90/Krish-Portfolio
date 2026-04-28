@@ -12,27 +12,27 @@ export class MobileControls {
     
     // In portrait, buttons are bigger and lower in the black space.
     const scale = isPortrait ? 2.2 : 1.2;
-    const bx = isPortrait ? 160 : 100;
-    const by = isPortrait ? cam.height - 240 : cam.height - 90;
+    const bx = isPortrait ? 180 : 100;
+    const by = isPortrait ? cam.height - 280 : cam.height - 90;
 
     // Joystick
     this.base = scene.add.image(bx, by, 'joystick_base').setScrollFactor(0).setDepth(200).setAlpha(0.5).setScale(scale);
     this.knob = scene.add.image(bx, by, 'joystick_knob').setScrollFactor(0).setDepth(201).setAlpha(0.8).setScale(scale);
 
     const btnRadius = isPortrait ? 46 : 28;
-    const rightCx = cam.width - (isPortrait ? 160 : 120);
+    const rightCx = cam.width - (isPortrait ? 200 : 120);
     const rightCy = by;
-    const offset = isPortrait ? 110 : 60;
+    const offset = isPortrait ? 90 : 60;
 
     // Helper for retro buttons
     const createBtn = (x, y, color, label, key) => {
       const bezelOffset = isPortrait ? 8 : 4;
       const bezel = scene.add.circle(x, y + bezelOffset, btnRadius, 0x111111, 0.9).setScrollFactor(0).setDepth(199);
       const btn = scene.add.circle(x, y, btnRadius, color, 0.85).setScrollFactor(0).setDepth(200).setInteractive();
-      btn.setStrokeStyle(isPortrait ? 6 : 3, 0xffffff, 0.6);
+      btn.setStrokeStyle(isPortrait ? 8 : 4, 0xffffff, 1);
       
       const txt = scene.add.text(x, y, label, {
-        fontFamily: '"Press Start 2P"', fontSize: isPortrait ? '16px' : '10px', color: '#ffffff'
+        fontFamily: '"Press Start 2P"', fontSize: isPortrait ? '14px' : '9px', color: '#ffffff'
       }).setOrigin(0.5).setScrollFactor(0).setDepth(201);
       
       const press = () => {
@@ -42,7 +42,7 @@ export class MobileControls {
           btn.setFillStyle(color, 1);
         }
         if (key === 'jump') player.mobileJump = true;
-        if (key === 'down') player.mobileDown = true;
+        if (key === 'enter') player.mobileDown = true;
         if (key === 'attack') player.mobileAttack = true;
         if (key === 'switch' && player.multiPowerMode) {
           player.selectPower((player.selectedPowerIndex + 1) % player.availablePowers.length);
@@ -64,12 +64,12 @@ export class MobileControls {
     };
 
     // SNES Diamond Layout
-    // A (Bottom) - Jump
+    // Bottom - Jump
     createBtn(rightCx, rightCy + offset, 0x22cc44, 'JUMP', 'jump');
-    // B (Right) - Attack
-    createBtn(rightCx + offset, rightCy, 0xcc2222, 'ATK', 'attack');
-    // X (Left) - Down / Enter
-    createBtn(rightCx - offset, rightCy, 0x2244cc, 'DOWN', 'down');
+    // Right - Enter
+    createBtn(rightCx + offset, rightCy, 0x2244cc, 'ENTER', 'enter');
+    // Left - Attack
+    createBtn(rightCx - offset, rightCy, 0xcc2222, 'ATK', 'attack');
     
     if (player.multiPowerMode) {
       // Y (Top) - Switch Power
@@ -77,7 +77,7 @@ export class MobileControls {
       
       // All Powers - Start/Select style in the bottom center
       const allX = cam.width / 2;
-      const allY = isPortrait ? cam.height - 80 : cam.height - 40;
+      const allY = isPortrait ? cam.height - 140 : cam.height - 40;
       
       const bezelOffset = isPortrait ? 6 : 3;
       const allW = isPortrait ? 220 : 120;
