@@ -111,29 +111,49 @@ export class MobileControls {
       allBtn.on('pointerout', releaseAll);
     }
 
-    // Joystick drag
-    this.base.setInteractive();
-    scene.input.on('pointermove', (pointer) => {
-      if (!pointer.isDown) return;
+    // Joystick multi-touch logic
+    const dragLimit = 120 * (isPortrait ? 1.5 : 1);
+    const maxDist = 30 * scale;
+    let activeJoystickPointer = null;
+
+    const updateJoystick = (pointer) => {
       const dx = pointer.x - bx;
       const dy = pointer.y - by;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const dragLimit = 120 * (isPortrait ? 1.5 : 1);
-      if (dist > dragLimit) return;
-      const maxDist = 30 * scale;
       const clampDist = Math.min(dist, maxDist);
       const angle = Math.atan2(dy, dx);
       this.knob.x = bx + Math.cos(angle) * clampDist;
       this.knob.y = by + Math.sin(angle) * clampDist;
       player.mobileDir.x = Math.cos(angle) * (clampDist / maxDist);
       player.mobileDir.y = Math.sin(angle) * (clampDist / maxDist);
-    });
+    };
 
-    scene.input.on('pointerup', () => {
+    const resetJoystick = () => {
+      activeJoystickPointer = null;
       this.knob.x = bx;
       this.knob.y = by;
       player.mobileDir.x = 0;
       player.mobileDir.y = 0;
+    };
+
+    scene.input.on('pointerdown', (pointer) => {
+      const dist = Math.sqrt(Math.pow(pointer.x - bx, 2) + Math.pow(pointer.y - by, 2));
+      if (dist <= dragLimit) {
+        activeJoystickPointer = pointer;
+        updateJoystick(pointer);
+      }
+    });
+
+    scene.input.on('pointermove', (pointer) => {
+      if (pointer === activeJoystickPointer && pointer.isDown) {
+        updateJoystick(pointer);
+      }
+    });
+
+    scene.input.on('pointerup', (pointer) => {
+      if (pointer === activeJoystickPointer) {
+        resetJoystick();
+      }
     });
   }
 }

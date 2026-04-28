@@ -30,6 +30,9 @@ const config = {
     default: 'arcade',
     arcade: { gravity: { y: 900 }, debug: false }
   },
+  input: {
+    activePointers: 3
+  },
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
