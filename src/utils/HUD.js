@@ -31,7 +31,7 @@ export class HUD {
     const ROW1   = M ? 72  : 16;            // health / menu row
     const ROW2   = M ? 108 : 36;            // XP score / sound row
     const ROW3   = M ? 136 : 48;            // level name row
-    const BARROW = M ? 162 : 20;            // XP bar row
+    const BARROW = M ? ROW3 + 22 : 20;            // XP bar row
     const BARW   = M ? 200 : 296;           // XP bar width
 
     // ── TOP-LEFT: Health bar (in PlayerController) + XP score ──

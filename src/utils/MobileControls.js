@@ -10,10 +10,10 @@ export class MobileControls {
     const cam = scene.cameras.main;
     const isPortrait = cam.height > cam.width;
     
-    // In portrait, buttons are bigger and lower in the black space.
+    // In portrait, buttons are bigger; shift up so ALL POWERS row is visible.
     const scale = isPortrait ? 2.2 : 1.2;
     const bx = isPortrait ? 180 : 100;
-    const by = isPortrait ? cam.height - 280 : cam.height - 90;
+    const by = isPortrait ? cam.height - 420 : cam.height - 90;
 
     // Joystick
     this.base = scene.add.image(bx, by, 'joystick_base').setScrollFactor(0).setDepth(200).setAlpha(0.5).setScale(scale);
@@ -75,9 +75,9 @@ export class MobileControls {
       // Y (Top) - Switch Power
       createBtn(rightCx, rightCy - offset, 0xaaaa22, 'SW', 'switch');
       
-      // All Powers - Start/Select style in the bottom center
+      // ALL POWERS - big button ABOVE the diamond cluster
       const allX = cam.width / 2;
-      const allY = isPortrait ? cam.height - 140 : cam.height - 40;
+      const allY = isPortrait ? by - offset - 60 : cam.height - 40;
       
       const bezelOffset = isPortrait ? 6 : 3;
       const allW = isPortrait ? 220 : 120;
