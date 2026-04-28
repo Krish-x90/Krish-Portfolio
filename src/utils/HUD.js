@@ -11,48 +11,55 @@ export class HUD {
     this.skillNodes = [];
     this.lastPowerReady = false;
 
-    this.levelText = scene.add.text(scene.cameras.main.width - 20, 16, '', {
+    const cam = scene.cameras.main;
+    const isMobile = scene.sys.game.device.input.touch;
+    const isPortrait = cam.height > cam.width;
+    // Push HUD down on mobile to avoid browser status bar overlap
+    const topY = isMobile && isPortrait ? 60 : 16;
+    const topY2 = isMobile && isPortrait ? 92 : 48;
+
+    this.levelText = scene.add.text(cam.width - 20, topY, '', {
       fontFamily: '"Press Start 2P"', fontSize: '14px', color: '#00f5ff',
       stroke: '#0a0a1a', strokeThickness: 4
     }).setOrigin(1, 0).setScrollFactor(0).setDepth(100);
 
     // Score (top left) - BIGGER
-    this.scoreText = scene.add.text(20, 16, 'XP: 0', {
+    this.scoreText = scene.add.text(20, topY, 'XP: 0', {
       fontFamily: '"Press Start 2P"', fontSize: '14px', color: '#ffd700',
       stroke: '#0a0a1a', strokeThickness: 4
     }).setScrollFactor(0).setDepth(100);
 
     // XP bar background
-    this.xpBarBg = scene.add.rectangle(scene.cameras.main.width / 2, 20, 300, 14, 0x111122)
+    this.xpBarBg = scene.add.rectangle(cam.width / 2, topY + 4, 300, 14, 0x111122)
       .setScrollFactor(0).setDepth(100).setStrokeStyle(1, 0x00f5ff, 0.5);
 
     // XP bar fill
-    this.xpBarFill = scene.add.rectangle(scene.cameras.main.width / 2 - 148, 20, 0, 10, 0x00ff88)
+    this.xpBarFill = scene.add.rectangle(cam.width / 2 - 148, topY + 4, 0, 10, 0x00ff88)
       .setScrollFactor(0).setDepth(101).setOrigin(0, 0.5);
 
     // Power hint
-    this.powerBg = scene.add.rectangle(scene.cameras.main.width - 16, scene.cameras.main.height - 16, 278, 48, 0x070712, 0.72)
+    this.powerBg = scene.add.rectangle(cam.width - 16, cam.height - 16, 278, 48, 0x070712, 0.72)
       .setOrigin(1, 1)
       .setScrollFactor(0)
       .setDepth(99)
       .setStrokeStyle(1, 0xff8800, 0.45)
       .setAlpha(0);
-    this.powerText = scene.add.text(scene.cameras.main.width - 20, scene.cameras.main.height - 20, '', {
+    this.powerText = scene.add.text(cam.width - 20, cam.height - 20, '', {
       fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#ff8800',
       stroke: '#0a0a1a', strokeThickness: 3
     }).setOrigin(1, 1).setScrollFactor(0).setDepth(100);
-    this.powerCooldownBg = scene.add.rectangle(scene.cameras.main.width - 262, scene.cameras.main.height - 18, 216, 5, 0x1b1b2c, 0.95)
+    this.powerCooldownBg = scene.add.rectangle(cam.width - 262, cam.height - 18, 216, 5, 0x1b1b2c, 0.95)
       .setOrigin(0, 1)
       .setScrollFactor(0)
       .setDepth(100)
       .setAlpha(0);
-    this.powerCooldownFill = scene.add.rectangle(scene.cameras.main.width - 262, scene.cameras.main.height - 18, 216, 3, 0xff8800, 1)
+    this.powerCooldownFill = scene.add.rectangle(cam.width - 262, cam.height - 18, 216, 3, 0xff8800, 1)
       .setOrigin(0, 1)
       .setScrollFactor(0)
       .setDepth(101)
       .setAlpha(0);
 
-    this.soundText = scene.add.text(scene.cameras.main.width - 20, 48, 'SOUND ON', {
+    this.soundText = scene.add.text(cam.width - 20, topY2, 'SOUND ON', {
       fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#00ff88',
       backgroundColor: '#0a0a2ecc', padding: { x: 8, y: 5 }
     }).setOrigin(1, 0).setScrollFactor(0).setDepth(100).setInteractive({ useHandCursor: true });
