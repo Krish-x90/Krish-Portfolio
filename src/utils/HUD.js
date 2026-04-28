@@ -15,8 +15,8 @@ export class HUD {
     const isMobile = scene.sys.game.device.input.touch;
     const isPortrait = cam.height > cam.width;
     // Push HUD down on mobile to avoid browser status bar overlap
-    const topY = isMobile && isPortrait ? 60 : 16;
-    const topY2 = isMobile && isPortrait ? 92 : 48;
+    const topY = isMobile && isPortrait ? 100 : 16;
+    const topY2 = isMobile && isPortrait ? 136 : 48;
 
     this.levelText = scene.add.text(cam.width - 20, topY, '', {
       fontFamily: '"Press Start 2P"', fontSize: '14px', color: '#00f5ff',
@@ -75,6 +75,32 @@ export class HUD {
     });
 
     this.inventoryIcons = [];
+
+    // Mobile-only MENU button (top center)
+    if (isMobile) {
+      const menuBtnY = isPortrait ? 100 : 16;
+      const menuBtn = scene.add.text(cam.width / 2, menuBtnY, '≡ MENU', {
+        fontFamily: '"Press Start 2P"', fontSize: isPortrait ? '14px' : '9px', color: '#ffffff',
+        backgroundColor: '#1a1a3acc', padding: { x: 14, y: 8 },
+        stroke: '#00f5ff', strokeThickness: 1
+      }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(200).setInteractive({ useHandCursor: true });
+
+      menuBtn.on('pointerdown', () => {
+        const currentKey = scene.scene.key;
+        scene.scene.pause(currentKey);
+        scene.scene.launch('Pause', { pausedScene: currentKey });
+      });
+
+      // Pulse effect so it's noticeable
+      scene.tweens.add({
+        targets: menuBtn,
+        alpha: 0.7,
+        duration: 1200,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+      });
+    }
   }
 
   updateSoundText() {

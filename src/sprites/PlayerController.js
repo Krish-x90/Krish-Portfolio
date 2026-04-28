@@ -44,7 +44,7 @@ export class PlayerController {
     if (scene.hud && scene.scene.key.startsWith('Tunnel')) {
       const isMobile = scene.sys.game.device.input.touch;
       const isPortrait = scene.cameras.main.height > scene.cameras.main.width;
-      const hbY = isMobile && isPortrait ? 116 : 70;
+      const hbY = isMobile && isPortrait ? 156 : 70;
       this.healthBg = scene.add.rectangle(150, hbY, 200, 14, 0x330000).setScrollFactor(0).setDepth(100).setStrokeStyle(1, 0xff0000);
       this.healthBar = scene.add.rectangle(50, hbY, 200, 10, 0xff0000).setScrollFactor(0).setDepth(101).setOrigin(0, 0.5);
       this.healthBar.width = 200;
