@@ -44,11 +44,12 @@ export class PlayerController {
     if (scene.hud && scene.scene.key.startsWith('Tunnel')) {
       const isMobile = scene.sys.game.device.input.touch;
       const isPortrait = scene.cameras.main.height > scene.cameras.main.width;
-      const hbY = isMobile && isPortrait ? 175 : 70;
+      const hbY = isMobile && isPortrait ? 72 : 70;
+      const hbLabelY = isMobile && isPortrait ? 58 : 55;
       this.healthBg = scene.add.rectangle(150, hbY, 200, 14, 0x330000).setScrollFactor(0).setDepth(100).setStrokeStyle(1, 0xff0000);
       this.healthBar = scene.add.rectangle(50, hbY, 200, 10, 0xff0000).setScrollFactor(0).setDepth(101).setOrigin(0, 0.5);
       this.healthBar.width = 200;
-      this.healthText = scene.add.text(50, hbY - 15, 'PLAYER HEALTH', { fontFamily: '"Press Start 2P"', fontSize: '8px', color: '#ffaaaa' }).setScrollFactor(0).setDepth(101);
+      this.healthText = scene.add.text(14, hbLabelY, 'PLAYER HEALTH', { fontFamily: '"Press Start 2P"', fontSize: '8px', color: '#ffaaaa' }).setScrollFactor(0).setDepth(101);
     }
 
     // Avenger power
