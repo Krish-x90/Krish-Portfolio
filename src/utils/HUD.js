@@ -14,51 +14,51 @@ export class HUD {
     const cam = scene.cameras.main;
     const isMobile = scene.sys.game.device.input.touch;
     const isPortrait = cam.height > cam.width;
-    // Push HUD down on mobile to avoid browser status bar overlap
-    const topY = isMobile && isPortrait ? 100 : 16;
-    const topY2 = isMobile && isPortrait ? 136 : 48;
+
+    // --- Mobile portrait layout (stacked rows to avoid overlap) ---
+    // Row 1: MENU button (center)        y = 68
+    // Row 2: XP (left) | Level (right)   y = 108
+    // Row 3: XP bar (center)             y = 130
+    // Row 4: Sound (right)               y = 150
+    // Row 5: Health bar (left)           y = 175
+    const menuY   = isMobile && isPortrait ? 68  : 0;   // hidden on desktop via alpha
+    const topY    = isMobile && isPortrait ? 108 : 16;
+    const xpBarY  = isMobile && isPortrait ? 130 : 20;
+    const topY2   = isMobile && isPortrait ? 150 : 48;
 
     this.levelText = scene.add.text(cam.width - 20, topY, '', {
       fontFamily: '"Press Start 2P"', fontSize: '14px', color: '#00f5ff',
       stroke: '#0a0a1a', strokeThickness: 4
     }).setOrigin(1, 0).setScrollFactor(0).setDepth(100);
 
-    // Score (top left) - BIGGER
+    // Score (top left)
     this.scoreText = scene.add.text(20, topY, 'XP: 0', {
       fontFamily: '"Press Start 2P"', fontSize: '14px', color: '#ffd700',
       stroke: '#0a0a1a', strokeThickness: 4
     }).setScrollFactor(0).setDepth(100);
 
     // XP bar background
-    this.xpBarBg = scene.add.rectangle(cam.width / 2, topY + 4, 300, 14, 0x111122)
+    this.xpBarBg = scene.add.rectangle(cam.width / 2, xpBarY, 300, 14, 0x111122)
       .setScrollFactor(0).setDepth(100).setStrokeStyle(1, 0x00f5ff, 0.5);
 
     // XP bar fill
-    this.xpBarFill = scene.add.rectangle(cam.width / 2 - 148, topY + 4, 0, 10, 0x00ff88)
+    this.xpBarFill = scene.add.rectangle(cam.width / 2 - 148, xpBarY, 0, 10, 0x00ff88)
       .setScrollFactor(0).setDepth(101).setOrigin(0, 0.5);
 
-    // Power hint
+    // Power hint (bottom)
     this.powerBg = scene.add.rectangle(cam.width - 16, cam.height - 16, 278, 48, 0x070712, 0.72)
-      .setOrigin(1, 1)
-      .setScrollFactor(0)
-      .setDepth(99)
-      .setStrokeStyle(1, 0xff8800, 0.45)
-      .setAlpha(0);
+      .setOrigin(1, 1).setScrollFactor(0).setDepth(99)
+      .setStrokeStyle(1, 0xff8800, 0.45).setAlpha(0);
     this.powerText = scene.add.text(cam.width - 20, cam.height - 20, '', {
       fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#ff8800',
       stroke: '#0a0a1a', strokeThickness: 3
     }).setOrigin(1, 1).setScrollFactor(0).setDepth(100);
     this.powerCooldownBg = scene.add.rectangle(cam.width - 262, cam.height - 18, 216, 5, 0x1b1b2c, 0.95)
-      .setOrigin(0, 1)
-      .setScrollFactor(0)
-      .setDepth(100)
-      .setAlpha(0);
+      .setOrigin(0, 1).setScrollFactor(0).setDepth(100).setAlpha(0);
     this.powerCooldownFill = scene.add.rectangle(cam.width - 262, cam.height - 18, 216, 3, 0xff8800, 1)
-      .setOrigin(0, 1)
-      .setScrollFactor(0)
-      .setDepth(101)
-      .setAlpha(0);
+      .setOrigin(0, 1).setScrollFactor(0).setDepth(101).setAlpha(0);
 
+    // Sound toggle
     this.soundText = scene.add.text(cam.width - 20, topY2, 'SOUND ON', {
       fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#00ff88',
       backgroundColor: '#0a0a2ecc', padding: { x: 8, y: 5 }
@@ -76,12 +76,12 @@ export class HUD {
 
     this.inventoryIcons = [];
 
-    // Mobile-only MENU button (top center)
+    // MENU button — shown on ALL mobile scenes (top center)
     if (isMobile) {
-      const menuBtnY = isPortrait ? 100 : 16;
-      const menuBtn = scene.add.text(cam.width / 2, menuBtnY, '≡ MENU', {
-        fontFamily: '"Press Start 2P"', fontSize: isPortrait ? '14px' : '9px', color: '#ffffff',
-        backgroundColor: '#1a1a3acc', padding: { x: 14, y: 8 },
+      const btnY = isPortrait ? menuY : 16;
+      const menuBtn = scene.add.text(cam.width / 2, btnY, '≡ MENU', {
+        fontFamily: '"Press Start 2P"', fontSize: isPortrait ? '13px' : '9px', color: '#ffffff',
+        backgroundColor: '#1a1a3acc', padding: { x: 14, y: 7 },
         stroke: '#00f5ff', strokeThickness: 1
       }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(200).setInteractive({ useHandCursor: true });
 
@@ -91,10 +91,9 @@ export class HUD {
         scene.scene.launch('Pause', { pausedScene: currentKey });
       });
 
-      // Pulse effect so it's noticeable
       scene.tweens.add({
         targets: menuBtn,
-        alpha: 0.7,
+        alpha: 0.65,
         duration: 1200,
         yoyo: true,
         repeat: -1,
